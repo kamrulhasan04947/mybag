@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mybag/models/card_model.dart';
 import 'package:mybag/widgits/components/card_quantity_button.dart';
 import '../constant/colors.dart';
@@ -43,18 +44,21 @@ class ItemCart extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            height:MediaQuery.of(context).size.height,
-            width: (orientation == Orientation.portrait)?
-            MediaQuery.of(context).size.width * .34:
-            MediaQuery.of(context).size.width * .25,
-            decoration: BoxDecoration(
-              color: AppColor.grey,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10)),
-              image:  DecorationImage(
-                  image: NetworkImage(cardContents[index].dressImage),
-                  fit: BoxFit.cover
-              )
+          AspectRatio(
+            aspectRatio: 0.87,
+            child: Container(
+              height:MediaQuery.of(context).size.height,
+              width: (orientation == Orientation.portrait)?
+              MediaQuery.of(context).size.width * .34:
+              MediaQuery.of(context).size.width * .25,
+              decoration: BoxDecoration(
+                color: AppColor.grey,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), topLeft: Radius.circular(10)),
+                image:  DecorationImage(
+                    image: NetworkImage(cardContents[index].dressImage),
+                    fit: BoxFit.cover
+                )
+              ),
             ),
           ),
           Expanded(
@@ -80,13 +84,38 @@ class ItemCart extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Text('Color: '),
-                                Text(cardContents[index].dressColor),
+                                Text(
+                                    'Color: ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                ),
+                                Text(
+                                    cardContents[index].dressColor,
+                                    style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                  ),
+                                ),
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Size: '),
-                                Text(cardContents[index].dressSize),
+                                Text(
+                                  'Size: ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  cardContents[index].dressSize,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                  ),
+                                ),
                               ],
                             )
                           ],

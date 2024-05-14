@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mybag/controllers/card_controller.dart';
 import 'package:mybag/models/card_model.dart';
 import 'package:mybag/widgits/components/alart_daialog.dart';
@@ -102,51 +100,73 @@ class _BageScreenState extends State<BageScreen> {
   Widget landscapeView(Orientation pageOrientation ) {
     return Container(
       margin: const EdgeInsets.all(10.00),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(
-            'MyBag',
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.black,
-              fontWeight: FontWeight.w700
+          SizedBox(
+            width: screenWidth * .6,
+            height: screenHeight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'MyBag',
+                  style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Expanded(
+                    child: ListView.builder(
+                      itemCount: cardContents.length,
+                      itemBuilder: (context, index){
+                        return ItemCart(
+                          index: index,
+                          orientation: pageOrientation,
+                          screenHeight: screenHeight,
+                          screenWidth: screenWidth,
+                          increaseQuantity: () => increaseItem(index, pageOrientation),
+                          decreaseQuantity: () => decreaseItem(index),
+                        );
+                      },
+                    )
+                ),
+              ],
             ),
           ),
           SizedBox(
-            height: 10,
+            width: screenWidth * .05,
           ),
-          Expanded(
-              flex: 3,
-              child: ListView.builder(
-                itemCount: cardContents.length,
-                itemBuilder: (context, index){
-                  return ItemCart(
-                    index: index,
-                    orientation: pageOrientation,
-                    screenHeight: screenHeight,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: screenWidth* .28,
+              height: screenHeight,
+              child:  Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BottomLayout(
                     screenWidth: screenWidth,
-                    increaseQuantity: () => increaseItem(index, pageOrientation) ,
-                    decreaseQuantity: () => decreaseItem(index),
-                  );
-                },
+                    screenHeight: screenHeight,
+                    orientation: pageOrientation,
+                    onPressed: (){
+                      CustomSnackBar.cSnackBar(
+                          context: context,
+                          message: 'Checkout successful. Thank you for shopping.'
+                      );
+                    },
+                    totalPrice: totalPrice,
+                  ),
+                ],
               ),
-
-          ),
-           BottomLayout(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight,
-                orientation: pageOrientation,
-                onPressed: (){
-                  CustomSnackBar.cSnackBar(
-                      context: context,
-                      message: 'Checkout successful. Thank you for shopping.'
-                  );
-                },
-                totalPrice: totalPrice,
-           )
+            ),
+          )
         ],
-      ),
+      )
     );
   }
 

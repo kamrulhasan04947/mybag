@@ -48,7 +48,7 @@ class BottomLayout extends StatelessWidget {
                     Text("${totalPrice.toString()}\$",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 14
+                            fontSize: 14,
                         ),
                     ),
                   ],
